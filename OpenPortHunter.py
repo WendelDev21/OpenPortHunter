@@ -40,7 +40,6 @@ except ImportError:
 def print_banner():
     """Exibe o banner da ferramenta apenas uma vez."""
     print("""
-
      
  _______  _______  _______  __    _  _______  _______  ______    _______  __   __  __   __  __    _  _______  _______  ______     
 |       ||       ||       ||  |  | ||       ||       ||    _ |  |       ||  | |  ||  | |  ||  |  | ||       ||       ||    _ |    
@@ -53,6 +52,23 @@ def print_banner():
      
 OpenPortHunter - Scanner de portas abertas
     """)
+
+def show_main_menu():
+    """Exibe o menu principal com opções para o usuário."""
+    print_banner()
+    print("[1] - Iniciar OpenPortHunter")
+    print("[2] - Sair")
+
+    choice = input("\nEscolha uma opção: ").strip()
+
+    if choice == "1":
+        port_scanner()
+    elif choice == "2":
+        print("\nVocê escolheu sair. Até logo!")
+        sys.exit()
+    else:
+        print("\nOpção inválida. Tente novamente.")
+        show_main_menu()
 
 def print_progress_bar(iteration, total, length=50):
     """Exibe uma barra de progresso."""
@@ -125,7 +141,6 @@ def save_results(results, target):
 # --- Função principal ---
 def port_scanner():
     """Executa o scanner de portas abertas."""
-    print_banner()  # Exibe o banner uma vez
     while True:
         # Solicita as informações do usuário
         target = input("\nDigite o endereço IP ou domínio para escanear: ").strip()
@@ -159,7 +174,7 @@ def port_scanner():
             for port, status, service in results:
                 print(f"Porta {port}: {status} (Serviço: {service})")
         else:
-            print(f"Nenhuma porta aberta encontrada em {target}.")
+            print(f"\nNenhuma porta aberta encontrada em {target}.")
 
         # Salva os resultados
         save_results(results, target)
@@ -167,9 +182,9 @@ def port_scanner():
         # Pergunta se o usuário quer continuar
         cont = input("\nDeseja continuar escaneando? (S/N): ").strip().lower()
         if cont == 'n':
-            print("\nEncerrando o programa. Obrigado por usar o OpenPortHunter!")
+            print("\nObrigado por usar o OpenPortHunter!")
             break
 
 # --- Ponto de entrada ---
 if __name__ == "__main__":
-    port_scanner()
+    show_main_menu()
