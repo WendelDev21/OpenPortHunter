@@ -4,14 +4,26 @@ import threading
 import csv
 import os
 import sys
-from fpdf import FPDF  # Certifique-se de instalar essa biblioteca com `pip install fpdf`
+import subprocess
+
+# Função para instalar pacotes automaticamente
+def install_package(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Garantir que o fpdf está instalado
+try:
+    from fpdf import FPDF
+except ImportError:
+    print("O pacote 'fpdf' não está instalado. Instalando automaticamente...")
+    install_package("fpdf")
+    from fpdf import FPDF
 
 # --- Funções utilitárias ---
 def print_banner():
     """Exibe o banner da ferramenta apenas uma vez."""
     print("""
-    
-    
+
+     
  _______  _______  _______  __    _  _______  _______  ______    _______  __   __  __   __  __    _  _______  _______  ______     
 |       ||       ||       ||  |  | ||       ||       ||    _ |  |       ||  | |  ||  | |  ||  |  | ||       ||       ||    _ |    
 |   _   ||    _  ||    ___||   |_| ||    _  ||   _   ||   | ||  |_     _||  |_|  ||  | |  ||   |_| ||_     _||    ___||   | ||    
@@ -20,7 +32,7 @@ def print_banner():
 |       ||   |    |   |___ | | |   ||   |    |       ||   |  | |  |   |  |   _   ||       || | |   |  |   |  |   |___ |   |  | |  
 |_______||___|    |_______||_|  |__||___|    |_______||___|  |_|  |___|  |__| |__||_______||_|  |__|  |___|  |_______||___|  |_|  
 
-    
+     
 OpenPortHunter - Scanner de portas abertas
     """)
 
