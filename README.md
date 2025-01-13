@@ -59,11 +59,11 @@ python OpenPortHunter.py
 ### Exportando Relatórios
 
 - **TXT:**
-  ```
+```
 Resultados do scanner para 192.168.1.1:
 Porta 22: Aberta (Serviço: ssh)
 Porta 80: Aberta (Serviço: http)
-  ```
+```
 
 - **PDF:** Relatório formatado com título e lista das portas abertas.
 - **CSV:** Arquivo com colunas para porta, status e serviço.
