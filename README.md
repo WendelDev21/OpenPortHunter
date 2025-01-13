@@ -88,4 +88,3 @@ Este projeto é licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LIC
 ---
 
 **OpenPortHunter** - Desenvolvido com amor pela comunidade de código aberto.
-```
