@@ -89,11 +89,3 @@ Este projeto é licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LIC
 
 **OpenPortHunter** - Desenvolvido com amor pela comunidade de código aberto.
 ```
-
-### Explicação:
-- **Descrição**: A introdução sobre o que é o OpenPortHunter, suas funcionalidades e como usá-lo.
-- **Instruções**: Passo a passo para clonar o repositório, instalar dependências e rodar o script.
-- **Exemplo de uso**: Um exemplo simples de como o programa funciona e a interação do usuário.
-- **Contribuições**: Instruções claras sobre como contribuir com o projeto.
-- **Doações**: Inclusão de um endereço Bitcoin onde os usuários podem fazer doações, apoiando o projeto.
-- **Licença**: Informação sobre a licença MIT para o uso e distribuição do código.
