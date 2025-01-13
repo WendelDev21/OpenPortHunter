@@ -6,17 +6,30 @@ import os
 import sys
 import subprocess
 
-# Função para instalar pacotes automaticamente
-def install_package(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+# Função para criar um ambiente virtual e instalar pacotes
+def create_virtualenv(venv_path):
+    """Cria um ambiente virtual se não existir."""
+    if not os.path.exists(venv_path):
+        subprocess.check_call([sys.executable, "-m", "venv", venv_path])
+
+def install_package(package, venv_path):
+    """Instala um pacote usando o pip no ambiente virtual."""
+    pip_executable = os.path.join(venv_path, "bin", "pip")
+    subprocess.check_call([pip_executable, "install", package])
+
+def check_and_install(package):
+    """Verifica se o pacote está instalado e instala se necessário."""
+    try:
+        __import__(package)
+    except ImportError:
+        print(f"Pacote {package} não encontrado. Instalando automaticamente...")
+        venv_path = os.path.join(os.getcwd(), "venv")
+        create_virtualenv(venv_path)
+        install_package(package, venv_path)
 
 # Garantir que o fpdf está instalado
-try:
-    from fpdf import FPDF
-except ImportError:
-    print("O pacote 'fpdf' não está instalado. Instalando automaticamente...")
-    install_package("fpdf")
-    from fpdf import FPDF
+check_and_install("fpdf")
+from fpdf import FPDF
 
 # --- Funções utilitárias ---
 def print_banner():
