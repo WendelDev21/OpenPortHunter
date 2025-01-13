@@ -6,29 +6,6 @@ import os
 import sys
 import subprocess
 import venv
-import time
-
-def saudacao():
-    print("\nOpenPortHunter - Scanner de portas abertas\n")
-    print("Obrigado por usar a ferramenta!")
-    print("Até logo!\n")
-
-def port_scanner():
-    try:
-        while True:
-            target = input("\nDigite o endereço IP ou domínio para escanear: ").strip()
-            if target:
-                print(f"Iniciando o escaneamento para {target}...")
-                # Lógica de escaneamento...
-                time.sleep(2)  # Simulação de escaneamento
-    except KeyboardInterrupt:
-        saudacao()  # Exibe a saudação quando o script é interrompido
-        exit(0)  # Encerra o script
-
-if __name__ == "__main__":
-    print("Bem-vindo ao OpenPortHunter!\n")
-    port_scanner()
-
 
 # Função para instalar pacotes automaticamente em um ambiente virtual
 def install_package(package, venv_path):
