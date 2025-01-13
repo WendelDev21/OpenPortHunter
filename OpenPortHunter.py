@@ -5,31 +5,36 @@ import csv
 import os
 import sys
 import subprocess
+import venv
 
-# Função para criar um ambiente virtual e instalar pacotes
-def create_virtualenv(venv_path):
-    """Cria um ambiente virtual se não existir."""
-    if not os.path.exists(venv_path):
-        subprocess.check_call([sys.executable, "-m", "venv", venv_path])
-
+# Função para instalar pacotes automaticamente em um ambiente virtual
 def install_package(package, venv_path):
-    """Instala um pacote usando o pip no ambiente virtual."""
-    pip_executable = os.path.join(venv_path, "bin", "pip")
-    subprocess.check_call([pip_executable, "install", package])
+    subprocess.check_call([os.path.join(venv_path, "bin", "python"), "-m", "pip", "install", package])
 
-def check_and_install(package):
-    """Verifica se o pacote está instalado e instala se necessário."""
-    try:
-        __import__(package)
-    except ImportError:
-        print(f"Pacote {package} não encontrado. Instalando automaticamente...")
-        venv_path = os.path.join(os.getcwd(), "venv")
-        create_virtualenv(venv_path)
-        install_package(package, venv_path)
+# Função para criar o ambiente virtual
+def create_virtualenv():
+    venv_path = os.path.join(os.getcwd(), "venv")
+    if not os.path.exists(venv_path):
+        print("Criando um ambiente virtual...")
+        venv.create(venv_path, with_pip=True)
+    return venv_path
 
-# Garantir que o fpdf está instalado
-check_and_install("fpdf")
-from fpdf import FPDF
+# Garantir que o fpdf está instalado no ambiente virtual
+venv_path = create_virtualenv()
+
+# Checa se o Python que está executando o script é o do ambiente virtual
+if sys.executable != os.path.join(venv_path, "bin", "python"):
+    print(f"Este script não está sendo executado com o Python do ambiente virtual. Redirecionando...")
+    subprocess.check_call([os.path.join(venv_path, "bin", "python"), __file__])
+    sys.exit()
+
+# Tenta importar a biblioteca fpdf
+try:
+    from fpdf import FPDF
+except ImportError:
+    print("O pacote 'fpdf' não está instalado no ambiente virtual. Instalando automaticamente...")
+    install_package("fpdf", venv_path)
+    from fpdf import FPDF
 
 # --- Funções utilitárias ---
 def print_banner():
